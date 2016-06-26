@@ -59,11 +59,13 @@ Passenger.save = function (formObj) {
         passenger.birthdate = new Date(formObj.pDate);
         passenger.gender = formObj.pGender;
         passenger.phone = formObj.pPhone;
-        passenger.email = formObj.pEmail;
         passenger.country = formObj.pCountry;
+        passenger.email = formObj.pEmail;
         passenger.img = formObj.pImg;
     } else {
-        passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId, formObj.pGender, formObj.pPhone, formObj.pEmail, formObj.pCountry, formObj.pImg);
+        passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId,
+                                  formObj.pGender,formObj.pCountry, formObj.pPhone,
+                                  formObj.pEmail,  formObj.pImg);
         console.log(passenger);
         
         passengers.push(passenger);
@@ -93,7 +95,7 @@ Passenger.render = function () {
                 ${(p.isBirthday()) ? '<i class="glyphicon glyphicon-gift"></i>' : ''}
             </td>
             <td>${p.gender}</td>
-            <td>${p.email}</td>
+            <td>${p.country}</td>
             <td>
                 <button class="btn btn-danger" onclick="Passenger.remove(${p.id}, event)">
                     <i class="glyphicon glyphicon-trash"></i>
