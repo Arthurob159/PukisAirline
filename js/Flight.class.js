@@ -1,137 +1,137 @@
 'use strict';
 
-const KEY_PLANES = 'planes';
+const KEY_FLIGHTS = 'flight';
 
 $(document).ready(()=>{
 
-    Plane.render();
+    Flight.render();
 
 });// This is a constructor function
-function Flight(id, src, dest, date, plane) {
-    this.id = (id) ? id : Plane.nextId();
+function Flight(id, src, dest, date, Flight) {
+    this.id = (id) ? id : Flight.nextId();
     this.src = src;
     this.dest = dest;
     this.date = date;
-    this.plane = plane;
+    this.Flight = Flight;
 }
 
 // static methods:
 
-Plane.nextId = function () {
+Flight.nextId = function () {
     let result = 1;
-    let jsonPlanes = Plane.loadJSONFromStorage();
-    if (jsonPlanes.length) result = jsonPlanes[jsonPlanes.length - 1].id + 1;
+    let jsonFlights = Flight.loadJSONFromStorage();
+    if (jsonFlights.length) result = jsonFlights[jsonFlights.length - 1].id + 1;
     return result;
 }
 
-Plane.findById = function (pId) {
+Flight.findById = function (pId) {
     let result = null;
-    let planes = Plane.query()
+    let Flights = Flight.query()
         .filter(p => p.id === pId);
-    if (planes.length) result = planes[0];
+    if (Flights.length) result = Flights[0];
     return result;
 }
 
-Plane.loadJSONFromStorage = function () {
-    let planes = getFromStorage(KEY_PLANES);
-    if (!planes) planes = [];
-    return planes;
+Flight.loadJSONFromStorage = function () {
+    let Flights = getFromStorage(KEY_FLIGHTS);
+    if (!Flights) Flights = [];
+    return Flights;
 }
 
 
 
-Plane.query = function () {
+Flight.query = function () {
 
-    if (Plane.planes) return Plane.planes;
-    let jsonPlanes = Plane.loadJSONFromStorage();
+    if (Flight.Flights) return Flight.Flights;
+    let jsonFlights = Flight.loadJSONFromStorage();
 
-    Plane.planes = jsonPlanes.map(jsonPlane => {
-        return new Plane(jsonPlane.id, jsonPlane.src, jsonPlane.dest);
+    Flight.Flights = jsonFlights.map(jsonFlight => {
+        return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest);
     })
 
-    return Plane.planes;
+    return Flight.Flights;
 }
 
-Plane.save = function (formObj) {
-    let planes = Plane.query();
-    let plane;
+Flight.save = function (formObj) {
+    let Flights = Flight.query();
+    let Flight;
 	console.log('formObj',formObj)
     if (formObj.pid) {
-        plane = Plane.findById(+formObj.pid);
-        plane.model = formObj.pmodel;
-        plane.sitsCount = +formObj.psits;
+        Flight = Flight.findById(+formObj.pid);
+        Flight.model = formObj.pmodel;
+        Flight.sitsCount = +formObj.psits;
     } else {
-        plane = new Plane(formObj.pmodel, formObj.psits);
-        planes.push(plane);
+        Flight = new Flight(formObj.pmodel, formObj.psits);
+        Flights.push(Flight);
     }
-    Plane.planes = planes;
-    saveToStorage(KEY_PLANES, planes);
+    Flight.Flights = Flights;
+    saveToStorage(KEY_FLIGHTS, Flights);
 }
 
-Plane.remove = function (pId, event) {
+Flight.remove = function (pId, event) {
     event.stopPropagation();
-    let planes = Plane.query();
-    planes = planes.filter(p => p.id !== pId)
-    saveToStorage(KEY_PLANES, planes);
-    Plane.planes = planes;
-    Plane.render();
+    let Flights = Flight.query();
+    Flights = Flights.filter(p => p.id !== pId)
+    saveToStorage(KEY_FLIGHTS, Flights);
+    Flight.Flights = Flights;
+    Flight.render();
 }
 
-Plane.render = function () {
+Flight.render = function () {
 
-    let planes = Plane.query();
+    let Flights = Flight.query();
 //	console.log(p)
-    var strHtml = planes.map(p => {
+    var strHtml = Flights.map(p => {
 			console.log(p)
 
-        return `<tr onclick="Plane.select(${p.id}, this)">
+        return `<tr onclick="Flight.select(${p.id}, this)">
             <td>${p.id}</td>
             <td>${p.src}</td>
             <td>${p.dest}</td>
             <td>${p.dest}</td>
-            <td>${p.Plane}</td>
+            <td>${p.Flight}</td>
             <td>
-                <button class="btn btn-danger" onclick="Plane.remove(${p.id}, event)">
+                <button class="btn btn-danger" onclick="Flight.remove(${p.id}, event)">
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
-                 <button class="btn btn-info" onclick="Plane.editPlane(${p.id}, event)">
+                 <button class="btn btn-info" onclick="Flight.editFlight(${p.id}, event)">
                     <i class="glyphicon glyphicon-edit"></i>
                 </button>
             </td>
         </tr>`
 
     }).join(' ');
-    $('.tblPlanes').html(strHtml);
+    $('.tblFlights').html(strHtml);
 }
 
-Plane.select = function (pId, elRow) {
+Flight.select = function (pId, elRow) {
     $('.active').removeClass('active success');
     $(elRow).addClass('active success');
     $('.details').show();
-    let p = Plane.findById(pId);
-    let strHtml = '<h2>Plane <span class="pDetailsName"></span> Details</h2>';
+    let p = Flight.findById(pId);
+    let strHtml = '<h2>Flight <span class="pDetailsName"></span> Details</h2>';
     $('.details').html(strHtml);
     $('.pDetailsName').html(p.name);
 
 }
 
 
-Plane.savePlane = function () {
+Flight.saveFlight = function () {
     var formObj = $('form').serializeJSON();
     console.log('formObj', formObj);
 
 
-    Plane.save(formObj);
-    Plane.render();
-    $('#modalPlane').modal('hide');
+    Flight.save(formObj);
+    Flight.render();
+    $('#modalFlight').modal('hide');
 }
-Plane.editPlane = function (pId, event) {
+Flight.editFlight = function (pId, event) {
     if (event) event.stopPropagation();
     if (pId) {
-        let plane = Plane.findById(pId);
-        $('#pid').val(plane.id);
-        $('#pmodel').val(plane.model);
-        $('#psits').val(plane.sitsCount);
+        let Flight = Flight.findById(pId);
+        $('#pid').val(Flight.id);
+        $('#pmodel').val(Flight.model);
+        $('#psits').val(Flight.sitsCount);
     } else {
         $('#pid').val('');
         $('#pmodel').val('');
@@ -139,20 +139,20 @@ Plane.editPlane = function (pId, event) {
     }
 
 
-    $('#modalPlane').modal('show');
+    $('#modalFlight').modal('show');
 
 }
 
 // instance methods:
 /*
-Plane.prototype.isBirthday = function () {
+Flight.prototype.isBirthday = function () {
     let now = new Date();
     return (this.birthdate.getMonth() === now.getMonth() &&
         this.birthdate.getDate() === now.getDate());
 }
 
 
-Plane.prototype.checkPin = function (pin) {
+Flight.prototype.checkPin = function (pin) {
     return pin === this.pin;
 }
 */
