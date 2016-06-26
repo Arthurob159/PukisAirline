@@ -51,6 +51,7 @@ Passenger.query = function () {
 }
 
 Passenger.save = function (formObj) {
+    console.log('passenger.save()');
     let passengers = Passenger.query();
     let passenger;
     if (formObj.pId) {
@@ -66,7 +67,7 @@ Passenger.save = function (formObj) {
         passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId,
                                   formObj.pGender,formObj.pCountry, formObj.pPhone,
                                   formObj.pEmail,  formObj.pImg);
-        console.log(passenger);
+        // console.log(passenger);
         
         passengers.push(passenger);
     }
