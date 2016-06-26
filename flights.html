@@ -42,12 +42,12 @@
         <h1>Puki Airlines <span class="glyphicon glyphicon-music"></span> </h1>-->
     </header>
 
-    <main class="planePage">
+    <main class="FlightPage">
         <div class="container">
             <!-- Button trigger modal -->
-            <button onclick="Plane.editPlane()" class="btn btn-primary btn-lg">
+            <button onclick="Flight.editFlight()" class="btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-plus"></span>
-                Add Plane
+                Add Flight
             </button>
         </div>
         <table class="table table-hover">
@@ -56,11 +56,12 @@
                     <th>Id</th>
                     <th>Source</th>
                     <th>Destination</th>
-                    <th>Flight Date</th>
+                    <th>Departure</th>
+                    <th>Arrival</th>
                     <th>Plane</th>
                 </tr>
             </thead>
-            <tbody class="tblPlanes">
+            <tbody class="tblFlights">
 
             </tbody>
         </table>
@@ -76,18 +77,18 @@
 
 
 
-    <div class="modal fade" id="modalPlane" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="modalFlight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Plane</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Flight</h4>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input type="hidden" id="pid" name="pid" >
+                        <input type="hidden" id="fId" name="fId" >
                         <div class="form-group">
-                            <label for="src">Source</label>
+                            <label for="fSrc">Source</label>
                                 <input list="countries" id="src" placeholder="Source*">
                                     <datalist id="countries">
                                         <option value="Australia">
@@ -102,8 +103,8 @@
                                     </datalist>
                         </div>
                         <div class="form-group">
-                            <label for="dest">Destination</label>
-                                <input list="countries" id="dest" placeholder="Destination*">
+                            <label for="fDest">Destination</label>
+                                <input list="countries" id="fDest" placeholder="Destination*">
                                     <datalist id="countries">
                                         <option value="Australia">
                                         <option value="Austria">
@@ -117,16 +118,16 @@
                                     </datalist>
                         </div>
                         <div class="form-group">
-                            <label for="pDeparture">Departure</label>
-                            <input type="date" class="form-control" id="pDeparture" name="pDeparture" placeholder="Departure Time">
+                            <label for="fDate">Departure</label>
+                            <input type="date" class="form-control" id="fDate" name="fDate" placeholder="Departure Time">
                         </div>
                         <div class="form-group">
                             <label for="pArrival">Arrival</label>
                             <input type="date" class="form-control" id="pArrival" name="pArrival" placeholder="Arrival Time">
                         </div>
                         <div class="form-group">
-                            <label for="pPlane">Choose Plane</label>
-                            <select name="pPlane" id="pPlane" class="form-control">
+                            <label for="fPlane">Choose Plane</label>
+                            <select name="fPlane" id="fPlane" class="form-control">
                                 <option value="none">Choose Plane</option>
                                 <option value="Boeing-720">Boeing-720</option>
                                 <option value="Boeing-737">Boeing-737</option>
@@ -138,7 +139,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="Plane.savePlane()">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="Flight.saveFlight()">Save</button>
                 </div>
             </div>
         </div>
@@ -155,7 +156,7 @@
     <script src="js/general.js"></script>
     <!-- <script src="js/oop.js"></script>
      <script src="js/app.js"></script> -->
-    <script src="js/Plane.class.js"></script>
+    <script src="js/Flight.class.js"></script>
 
 </body>
 

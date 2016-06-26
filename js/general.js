@@ -45,8 +45,6 @@ function saveToStorage(key, value) {
 } 
 function getFromStorage(key) {
   var str = localStorage.getItem(key);
-  console.log('str from localStorage:' ,str);
-  
   return JSON.parse(str);
 } 
 
