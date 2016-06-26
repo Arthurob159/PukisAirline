@@ -8,6 +8,7 @@ $(document).ready(()=>{
 
 });// This is a constructor function
 function Flight(id, src, dest, departure, arrival, plane) {
+    console.log('constructor');
     this.id = (id) ? id : Flight.nextId();
     this.src = src;
     this.dest = dest;
@@ -22,6 +23,7 @@ Flight.nextId = function () {
     let result = 1;
     let jsonFlights = Flight.loadJSONFromStorage();
     if (jsonFlights.length) result = jsonFlights[jsonFlights.length - 1].id + 1;
+    console.log('result:',result);
     return result;
 }
 
@@ -35,6 +37,7 @@ Flight.findById = function (fId) {
 
 Flight.loadJSONFromStorage = function () {
     let flights = getFromStorage(KEY_FLIGHTS);
+    console.log('flights:',flights);
     if (!flights) flights = [];
     return flights;
 }
@@ -42,51 +45,61 @@ Flight.loadJSONFromStorage = function () {
 
 
 Flight.query = function () {
-
-    if (Flight.Flights) return Flight.Flights;
+    console.log('query()');
+    if (Flight.flights) return Flight.flights;
     let jsonFlights = Flight.loadJSONFromStorage();
+    console.log('jsonFlights:',jsonFlights);
+    // Flight.flights = jsonFlights.map(jsonFlight => {
+    //     return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.arrival, jsonFlight.plane);
+    // });
+    Flight.flights = jsonFlights.map(jsonFlight => {
+        return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest,
+                             jsonFlight.departure, jsonFlight.arrival,
+                             jsonFlight.plane);
+    });
 
-    Flight.Flights = jsonFlights.map(jsonFlight => {
-        return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.arrival, jsonFlight.plane);
-    })
-
-    return Flight.Flights;
+    return Flight.flights;
 }
 
 Flight.save = function (formObj) {
+    console.log('save', formObj);
     let flights = Flight.query();
     let flight;
-	console.log('formObj',formObj)
+    console.log('save flights query',flights);
     if (formObj.fId) {
         flight = Flight.findById(+formObj.fId);
         flight.src = formObj.fSrc;
-        flight.dest = +formObj.fDest;
-        flight.departue = +formObj.fDeparture;
-        flight.arrival = +formObj.fArrival;
-        flight.plane = +formObj.fPlane;
+        flight.dest = formObj.fDest;
+        flight.departue = formObj.fDeparture;
+        flight.arrival = formObj.fArrival;
+        flight.plane = formObj.fPlane;
     } else {
+        console.log('save- else');
         flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane);
-        flights.push(Flight);
+        flights.push(flight);
+        console.log('new flights:',flights);
     }
+    console.log('flights save:',flights);
     Flight.flights = flights;
     saveToStorage(KEY_FLIGHTS, flights);
 }
 
 Flight.remove = function (fId, event) {
+    console.log('remove');
     event.stopPropagation();
-    let Flights = Flight.query();
-    Flights = Flights.filter(f => f.id !== fId)
-    saveToStorage(KEY_FLIGHTS, Flights);
-    Flight.Flights = Flights;
+    let flights = Flight.query();
+    flights = Flights.filter(f => f.id !== fId)
+    saveToStorage(KEY_FLIGHTS, flights);
+    Flight.flights = flights;
     Flight.render();
 }
 
 Flight.render = function () {
 
-    let Flights = Flight.query();
-//	console.log(p)
-    var strHtml = Flights.map(f => {
-			console.log(f)
+    let flights = Flight.query();
+	console.log('render', flights);
+    var strHtml = flights.map(f => {
+			console.log('render map',f);
 
         return `<tr onclick="Flight.select(${f.id}, this)">
             <td>${f.id}</td>
@@ -123,13 +136,14 @@ Flight.select = function (fId, elRow) {
 
 Flight.saveFlight = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj', formObj);
+    console.log('formObj saveFlight', formObj);
 
 
     Flight.save(formObj);
     Flight.render();
     $('#modalFlight').modal('hide');
 }
+
 Flight.editFlight = function (pId, event) {
     if (event) event.stopPropagation();
     if (pId) {

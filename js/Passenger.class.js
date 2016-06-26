@@ -38,7 +38,7 @@ Passenger.loadJSONFromStorage = function () {
 }
 
 Passenger.query = function () {
-
+	debugger;
 	if (Passenger.passengers) return Passenger.passengers;
 	let jsonPassengers = Passenger.loadJSONFromStorage();
 
@@ -46,7 +46,7 @@ Passenger.query = function () {
 		return new Passenger(jsonPassenger.name, jsonPassenger.birthdate, jsonPassenger.id,
 							 jsonPassenger.gender, jsonPassenger.phone,
 							 jsonPassenger.email, jsonPassenger.country, jsonPassenger.img);
-	})
+	});
 	return Passenger.passengers;
 }
 
@@ -151,6 +151,7 @@ Passenger.savePassenger = function () {
 	Passenger.render();
 	$('#modalPassenger').modal('hide');
 }
+
 Passenger.editPassenger = function (pId, event) {
 	if (event) event.stopPropagation();
 	if (pId) {
