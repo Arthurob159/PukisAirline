@@ -67,9 +67,9 @@ Passenger.save = function (formObj) {
         passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId,
                                   formObj.pGender,formObj.pCountry, formObj.pPhone,
                                   formObj.pEmail,  formObj.pImg);
-        // console.log(passenger);
+        console.log(passenger);
         
-        passengers.push(passenger);
+        passengers.push('passenger');
     }
     Passenger.passengers = passengers;
     saveToStorage(KEY_PASSENGERS, passengers);
