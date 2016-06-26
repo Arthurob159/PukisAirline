@@ -51,6 +51,7 @@ Passenger.query = function () {
 }
 
 Passenger.save = function (formObj) {
+    console.log('formObj:',formObj);
     let passengers = Passenger.query();
     let passenger;
     if (formObj.pId) {
@@ -64,7 +65,7 @@ Passenger.save = function (formObj) {
         passenger.img = formObj.pImg;
     } else {
         passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId, formObj.pGender, formObj.pPhone, formObj.pEmail, formObj.pCountry, formObj.pImg);
-        console.log(passenger);
+        // console.log(passenger);
         
         passengers.push(passenger);
     }
@@ -143,7 +144,7 @@ Passenger.select = function (pId, elRow) {
 
 Passenger.savePassenger = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj', formObj);
+    // console.log('formObj', formObj);
 
     Passenger.save(formObj);
     Passenger.render();

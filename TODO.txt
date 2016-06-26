@@ -1,0 +1,4 @@
+hover on table
+add bg-images to planes and flights
+flights.index- change name of button and modal
+passenger.index- country is email
