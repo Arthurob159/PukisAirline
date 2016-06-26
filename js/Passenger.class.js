@@ -69,7 +69,7 @@ Passenger.save = function (formObj) {
                                   formObj.pEmail,  formObj.pImg);
         console.log(passenger);
         
-        passengers.push(passenger);
+        passengers.push('passenger');
     }
     Passenger.passengers = passengers;
     saveToStorage(KEY_PASSENGERS, passengers);
