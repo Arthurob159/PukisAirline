@@ -108,10 +108,25 @@ Plane.select = function (pId, elRow) {
     $(elRow).addClass('active success');
     $('.details').show();
     let p = Plane.findById(pId);
+    let flights = getFlights(pId);
+    console.log('pId:',pId);
     let strHtml = ` <table class="table">
                         <th>Id</th>
                         <th>model</th>
                         <th>Sits Count</th>
+                        <tr>
+                            <td><p>`+pId+`</p></td>
+                            <td><p>`+p.model+`</p></td>
+                            <td><p>`+p.sitsCount+`</p></td>
+                        </tr>
+                    </table>
+                    <table class="table">
+                        <th>Id</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Available Seats</th>
                         <tr>
                             <td><p>`+pId+`</p></td>
                             <td><p>`+p.model+`</p></td>
@@ -124,7 +139,13 @@ Plane.select = function (pId, elRow) {
     $('.pDetailsName').html(p.name);
 
 }
-
+function getFlights(pId){
+    let flights = Flight.query();
+    console.log('flights[0].plane:',flights[0].plane);
+    flights = flights.filter(flight => flight.plane === pId);
+    console.log('flights:',flights);
+    return flights;
+}
 
 Plane.savePlane = function () {
     var formObj = $('form').serializeJSON();
