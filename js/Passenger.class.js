@@ -17,7 +17,7 @@ function Passenger(name, birthdate, id, gender, phone, email, country, img, flig
 }
 
 // static methods:
-Passenger.getFlightById = function (pId) {
+Passenger.getFlightByPId = function (pId) {
 	let result = null;
 	let passengers = Passenger.query()
 		.filter(p => p.id === pId);
