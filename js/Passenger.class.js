@@ -18,11 +18,16 @@ function Passenger(name, birthdate, id, gender, phone, email, country, img, flig
 
 // static methods:
 Passenger.getFlightByPId = function (pId) {
-	let result = null;
-	let passengers = Passenger.query()
-		.filter(p => p.id === pId);
-	if (passengers.length) result = passengers[0].flights;
-	return result;
+	debugger;
+	// let 
+	let passengerFlights = [];
+	Passenger.flights.foreach(fId=> {passengerFlights.push(Flight.query().filter(flight.fId === passenger[i]))});
+		return passengerFlights;
+	// passenger.flights.foreach(){}
+	// let passengers = Passenger.query();
+		// .filter(p => p.id === pId);
+	// if (passengers.length) result = passengers[0].flights;
+	// return result;
 }
 
 Passenger.nextId = function () {
@@ -123,6 +128,8 @@ Passenger.select = function (pId, elRow) {
 	$(elRow).addClass('active success');
 	$('.details').show();
 	let p = Passenger.findById(pId);
+	let f = Passenger.getFlightByPId(pId);
+	console.log('f:', f);
 	let strHtml = `'<h2>Passenger <span class="pDetailsName"></span> Details</h2>
 					<div class="passengerDetails">
 						<table class="table">
@@ -143,10 +150,16 @@ Passenger.select = function (pId, elRow) {
 								<td><p>`+p.email+`</p></td>
 								<td><p>`+p.country+`</p></td>
 								<td><p>`+p.image+`</p></td>
-									
+							<tr>
+								<th>Id</th>
+								<th>Source</th>
+								<th>Destination</th>
+								<th>Departure</th>
+								<th>Arrival</th>
+							</tr>	
 							</tr>
 							<tr>
-								<td>`+p.flights+`hello</td>								
+								<td>`+f[0].src+`</td>		
 							</tr>
 						</table>
 					</div>'`;
