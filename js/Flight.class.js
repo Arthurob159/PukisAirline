@@ -7,14 +7,14 @@ $(document).ready(()=>{
 	Flight.render();
 
 });// This is a constructor function
-function Flight(id, src, dest, departure, arrival, plane, seatsLeft) {
+function Flight(id, src, dest, departure, arrival, plane) {
 	this.id = (id) ? id : Flight.nextId();
 	this.src = src;
 	this.dest = dest;
 	this.departure = departure;
 	this.arrival = arrival;
 	this.plane = plane;
-	this.seatsLeft = seatsLeft;
+	// this.seatsLeft = seatsLeft;
 	// this.seatsLeft = seatsLeft || Plane.findById(plane).sitsCount;
 }
 
@@ -49,7 +49,7 @@ Flight.query = function(){
 	Flight.flights = jsonFlights.map(jsonFlight => {
 		return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest,
 							 jsonFlight.departure, jsonFlight.arrival,
-							 jsonFlight.plane, jsonFlight.seatsLeft);
+							 jsonFlight.plane);
 	});
 
 	return Flight.flights;
@@ -65,9 +65,9 @@ Flight.save = function (formObj) {
 		flight.departure = formObj.fDeparture;
 		flight.arrival = formObj.fArrival;
 		flight.plane = formObj.fPlane;
-		flight.seatsLeft = formObj.seatsLeft;
+		// flight.seatsLeft = formObj.seatsLeft;
 	} else {
-		flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane, formObj.seatsLeft);
+		flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane);
 		flights.push(flight);
 	}
 	Flight.flights = flights;
@@ -100,7 +100,6 @@ Flight.printFlights = function(flights, canEdit){
 			<td>${f.departure}</td>
 			<td>${f.arrival}</td>
 			<td>${f.plane}</td>
-			<td>${f.seatsLeft}</td>
 			<td>
 				<button class="btn btn-danger" onclick="Flight.remove(${f.id}, event)">
 					<i class="glyphicon glyphicon-trash"></i>
@@ -160,12 +159,12 @@ Flight.editFlight = function (fId, event) {
 		$('#fArrival').val(flight.arrival);
 		$('#fPlane').val(flight.plane);
 	} else {
-		$('#fId').val();
-		$('#fSrc').val();
-		$('#fDest').val();
-		$('#fDeparture').val();
-		$('#fArrival').val();
-		$('#fPlane').val();
+		$('#fId').val('');
+		$('#fSrc').val('');
+		$('#fDest').val('');
+		$('#fDeparture').val('');
+		$('#fArrival').val('');
+		$('#fPlane').val('');
 	}
 
 	let planesId = Plane.query()
