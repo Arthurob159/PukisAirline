@@ -154,6 +154,7 @@ Flight.editFlight = function (fId, event) {
 	let planesId = Plane.query()
 			.map(plane => '<option value="'+plane.id+'"">'+plane.id+'-'+plane.model+'</option>').join('');
 	console.log('planesId:',planesId);
+	$('#fPlane').html('');
 	$('#fPlane').append(planesId);
 	$('#modalFlight').modal('show');
 
