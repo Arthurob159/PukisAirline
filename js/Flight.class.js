@@ -41,7 +41,7 @@ Flight.loadJSONFromStorage = function () {
 
 
 //get all flights
-Flight.query = function () {
+Flight.query = function(){
 	if (Flight.flights) return Flight.flights;
 	let jsonFlights = Flight.loadJSONFromStorage();
 	Flight.flights = jsonFlights.map(jsonFlight => {
@@ -151,7 +151,10 @@ Flight.editFlight = function (fId, event) {
 		$('#fArrival').val();
 		$('#fPlane').val();
 	}
-
+	let planesId = Plane.query()
+			.map(plane => '<option value="'+plane.id+'"">'+plane.id+'-'+plane.model+'</option>').join('');
+	console.log('planesId:',planesId);
+	$('#fPlane').append(planesId);
 	$('#modalFlight').modal('show');
 
 }
