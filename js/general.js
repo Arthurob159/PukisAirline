@@ -65,16 +65,5 @@ function inherit(derived, base) {
      derived.prototype = new Dummy();
 }
 
-function searchFlight() {
-  $('#modalTicket').modal('show');
-  
-  $('#modalTicketSrc').text($('#searchFrom').val());
-  $('#modalTicketDest').text($('#searchTo').val());
-  //TODO- 1.change flightDate.text to the right curr flight date--from LS
-  //      2.change availableSeats.text to the right availableSeats curr flight seats--from LS 
-  $('#flightDate').text('flightDate');
-  $('#availableSeats').text('availableSeats');
-  
-}
 
 
