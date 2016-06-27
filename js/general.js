@@ -65,24 +65,25 @@ function inherit(derived, base) {
      derived.prototype = new Dummy();
 }
 
-function getCountriesFromLS () {
+function getCountriesFromStorage () {
+    //Set --> ecma6 new object , instead of use of an array
     let countriesSet = new Set();
+    //flights is an array of Flight object
     let flights = Flight.query();
-    srcFlights = flights.map(f => f.src);
-    destFlights = flights.map(f => f.dest);
-    countriesSet.add(srcFlights);
-    countriesSet.add(destFlights);
-    
-    console.log('countriesSet: ' ,countriesSet);
-    for (let item of countriesSet) {
-                                      var option = `<option value="`+item+`">`};
+    let srcFlights = flights.map(f => f.src);
+    let destFlights = flights.map(f => f.dest);
+    //add to Set 2 arrays of flights
+    srcFlights.forEach(src => countriesSet.add(src));
+    destFlights.forEach(dest => countriesSet.add(dest));
+    let option = '';
+    countriesSet.forEach(function(value) {
+    option += `<option value="`+value+`"></option>`;
+                        });
+                                      
     let strHTML = `<datalist id="countries">
                       `+option+`
                    </datalist>`;
-                   console.log('strHTML: ',strHTML);
     $('#searchFrom').html(strHTML);
-    // var el = document.querySelector('#searchFrom');
-    // console.log('el: ',el);
-    // console.log('General flights: ',flights[0].src ,flights[0].dest);
+    $('#searchTo').html(strHTML);
 }
 

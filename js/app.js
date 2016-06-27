@@ -62,7 +62,7 @@ function renderAvailableFlights(relFlights) {
 
 
 $(document).ready(()=>{
-	getCountriesFromLS();
+	getCountriesFromStorage();
     Passenger.render();
 
 });
