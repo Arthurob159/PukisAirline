@@ -43,10 +43,9 @@ Plane.query = function () {
 
     if (Plane.planes) return Plane.planes;
     let jsonPlanes = Plane.loadJSONFromStorage();
-
     Plane.planes = jsonPlanes.map(jsonPlane => {
         return new Plane(jsonPlane.model, jsonPlane.sitsCount, jsonPlane.id);
-    })
+    });
 
     return Plane.planes;
 }
@@ -156,6 +155,7 @@ Plane.savePlane = function () {
     Plane.render();
     $('#modalPlane').modal('hide');
 }
+
 Plane.editPlane = function (pId, event) {
     if (event) event.stopPropagation();
     if (pId) {
