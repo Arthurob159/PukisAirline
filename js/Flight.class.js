@@ -7,13 +7,14 @@ $(document).ready(()=>{
 	Flight.render();
 
 });// This is a constructor function
-function Flight(id, src, dest, departure, arrival, plane) {
+function Flight(id, src, dest, departure, arrival, plane, seatsLeft) {
 	this.id = (id) ? id : Flight.nextId();
 	this.src = src;
 	this.dest = dest;
 	this.departure = departure;
 	this.arrival = arrival;
 	this.plane = plane;
+	this.seatsLeft = seatsLeft || Plane.findById(plane).sitsCount;
 }
 
 // static methods:
@@ -74,7 +75,7 @@ Flight.save = function (formObj) {
 Flight.remove = function (fId, event) {
 	event.stopPropagation();
 	let flights = Flight.query();
-	flights = Flights.filter(f => f.id !== fId)
+	flights = flights.filter(f => f.id !== fId)
 	saveToStorage(KEY_FLIGHTS, flights);
 	Flight.flights = flights;
 	Flight.render();
@@ -153,7 +154,6 @@ Flight.editFlight = function (fId, event) {
 	}
 	let planesId = Plane.query()
 			.map(plane => '<option value="'+plane.id+'"">'+plane.id+'-'+plane.model+'</option>').join('');
-	console.log('planesId:',planesId);
 	$('#fPlane').html('');
 	$('#fPlane').append(planesId);
 	$('#modalFlight').modal('show');

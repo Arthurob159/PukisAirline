@@ -26,7 +26,7 @@ Plane.nextId = function () {
 Plane.findById = function (pId) {
     let result = null;
     let planes = Plane.query()
-        .filter(p => p.id === pId);
+        .filter(p => p.id == pId);
     if (planes.length) result = planes[0];
     return result;
 }
@@ -53,7 +53,6 @@ Plane.query = function () {
 Plane.save = function (formObj) {
     let planes = Plane.query();
     let plane;
-	console.log('formObj',formObj)
     if (formObj.pid) {
         plane = Plane.findById(+formObj.pid);
         plane.model = formObj.pmodel;
@@ -78,10 +77,7 @@ Plane.remove = function (pId, event) {
 Plane.render = function () {
 
     let planes = Plane.query();
-//	console.log(p)
     var strHtml = planes.map(p => {
-			console.log(p)
-
         return `<tr onclick="Plane.select(${p.id}, this)">
             <td>${p.id}</td>
             <td>${p.model}</td>
@@ -108,49 +104,38 @@ Plane.select = function (pId, elRow) {
     $('.details').show();
     let p = Plane.findById(pId);
     let flights = getFlights(pId);
-    console.log('pId:',pId);
-    let strHtml = ` <table class="table">
-                        <th>Id</th>
-                        <th>model</th>
-                        <th>Sits Count</th>
-                        <tr>
-                            <td><p>`+pId+`</p></td>
-                            <td><p>`+p.model+`</p></td>
-                            <td><p>`+p.sitsCount+`</p></td>
-                        </tr>
-                    </table>
+    let strHtml = `
+                    <h3>Next Flights</h3>
                     <table class="table">
                         <th>Id</th>
                         <th>Source</th>
                         <th>Destination</th>
                         <th>Departure</th>
                         <th>Arrival</th>
-                        <th>Available Seats</th>
-                        <tr>
-                            <td><p>`+pId+`</p></td>
-                            <td><p>`+p.model+`</p></td>
-                            <td><p>`+p.sitsCount+`</p></td>
-                        </tr>
-                    </table>
-                    
-                    `;
+                        <th>Available Seats</th>`+
+                        flights.map(flight=>{
+                            return `<tr>
+                                        <td><p>`+flight.id+`</p></td>
+                                        <td><p>`+flight.src+`</p></td>
+                                        <td><p>`+flight.dest+`</p></td>
+                                        <td><p>`+flight.Departure+`</p></td>
+                                        <td><p>`+flight.Arrival+`</p></td>
+                                        <td><p>`+'not yet set'+`</p></td>
+                                    </tr>`
+                        }).join('')+
+                    '</table>';
     $('.details').html(strHtml);
     $('.pDetailsName').html(p.name);
 
 }
 function getFlights(pId){
     let flights = Flight.query();
-    console.log('flights[0].plane:',flights[0].plane);
-    flights = flights.filter(flight => flight.plane === pId);
-    console.log('flights:',flights);
+    flights = flights.filter(flight => flight.plane == pId);
     return flights;
 }
 
 Plane.savePlane = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj', formObj);
-
-
     Plane.save(formObj);
     Plane.render();
     $('#modalPlane').modal('hide');
