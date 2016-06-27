@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>I like Coding</title>
+	<link rel="stylesheet" href="lib/animate.css">
+	<link rel="stylesheet" href="stylesheets/main.css" />
+
+</head>
+
+<body>
+	<!--<img class="wallpaperImage img-responsive" src="img/flights.jpg" alt="">-->
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="index.html"><span class="glyphicon glyphicon-plane"></span>Puki Airlines</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			<li><a href="passengers.html">Passengers</a></li>
+			<li><a href="planes.html">Planes</a></li>
+			<li><a href="flights.html">Flights</a></li>
+		</ul>
+
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+	</nav>
+	<header class="box">
+		<!--<img src="img/layout/ca-white.png" class="img-responsive"  />-->
+		<!--<img src="img/layout/logo.png" class="img-responsive animated tada" />
+		<h1>Puki Airlines <span class="glyphicon glyphicon-music"></span> </h1>-->
+	</header>
+
+	<main class="FlightPage">
+		<div class="container">
+			<!-- Button trigger modal -->
+			<button onclick="Flight.editFlight()" class="btn btn-primary btn-lg">
+				<span class="glyphicon glyphicon-plus"></span>
+				Add Flight
+			</button>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Source</th>
+					<th>Destination</th>
+					<th>Departure</th>
+					<th>Arrival</th>
+					<th>Plane</th>
+				</tr>
+			</thead>
+			<tbody class="tblFlights">
+
+			</tbody>
+		</table>
+
+		<section class="details">
+			
+		</section>
+
+
+
+	</main>
+
+
+
+
+	<div class="modal fade" id="modalFlight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Add Flight</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<input type="hidden" id="fId" name="fId" >
+						<div class="form-group">
+							<label for="fSrc">Source</label>
+							<!-- <input type="text" id="fSrc"> -->
+							<input list="countries" name="fSrc" id="fSrc" placeholder="Source*">
+								<datalist id="countries">
+									<option value="Australia">
+									<option value="Austria">
+									<option value="Armenia">
+									<option value="Brazil">
+									<option value="Israel">
+									<option value="New Zealand">
+									<option value="Canada">
+									<option value="USA">
+									<option value="UK">
+								</datalist>
+						</div>
+						<div class="form-group">
+							<label for="fDest">Destination</label>
+							<input list="countries" name="fDest" id="fDest" placeholder="Destination*">
+								<datalist id="countries">
+									<option value="Australia">
+									<option value="Austria">
+									<option value="Armenia">
+									<option value="Brazil">
+									<option value="Israel">
+									<option value="New Zealand">
+									<option value="Canada">
+									<option value="USA">
+									<option value="UK">
+								</datalist>
+						</div>
+						<div class="form-group">
+							<label for="fDeparture">Departure</label>
+							<input type="date" class="form-control" id="fDeparture" name="fDeparture" placeholder="Departure Time">
+						</div>
+						<div class="form-group">
+							<label for="fArrival">Arrival</label>
+							<input type="date" class="form-control" id="fArrival" name="fArrival" placeholder="Arrival Time">
+						</div>
+						<div class="form-group">
+							<label for="fPlane">Choose Plane</label>
+							<select name="fPlane" name="fPlane" id="fPlane" class="form-control">
+								<option value="none">Choose Plane</option>
+								<option value="Boeing-720">Boeing-720</option>
+								<option value="Boeing-737">Boeing-737</option>
+								<option value="Boeing-747">Boeing-747</option>
+								<option value="Boeing-777">Boeing-777</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="Flight.saveFlight()">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		cofferights &copy; 2016
+	</footer>
+
+	<script src="lib/jquery/jquery.js"></script>
+	<script src="lib/jquery.serializejson.min.js"></script>
+	<script src="lib/bootstrap/javascripts/bootstrap.min.js"></script>
+	<script src="lib/moment.min.js"></script>
+	<script src="js/general.js"></script>
+	<!-- <script src="js/oop.js"></script>
+	 <script src="js/app.js"></script> -->
+	<script src="js/Flight.class.js"></script>
+
+</body>
+
+</html>
