@@ -21,8 +21,14 @@ Passenger.getFlightByPId = function (pId) {
 	debugger;
 	// let 
 	let passengerFlights = [];
-	Passenger.flights.foreach(fId=> {passengerFlights.push(Flight.query().filter(flight.fId === passenger[i]))});
-		return passengerFlights;
+	// Flight.foreach(fId)
+	let f =Flight.query();
+	console.log('f:',f);
+	return Passenger.flights = f;
+
+	// Passenger.flights.foreach((fId)=> {passengerFlights.push(Flight.query())});
+	// Passenger.flights.foreach(fId=> {passengerFlights.push(Flight.query().filter(flight.fId === passenger[i]))});
+	// 	return passengerFlights;
 	// passenger.flights.foreach(){}
 	// let passengers = Passenger.query();
 		// .filter(p => p.id === pId);
@@ -128,6 +134,7 @@ Passenger.select = function (pId, elRow) {
 	$(elRow).addClass('active success');
 	$('.details').show();
 	let p = Passenger.findById(pId);
+	console.log('p:',p);
 	let f = Passenger.getFlightByPId(pId);
 	console.log('f:', f);
 	let strHtml = `'<h2>Passenger <span class="pDetailsName"></span> Details</h2>
@@ -159,7 +166,11 @@ Passenger.select = function (pId, elRow) {
 							</tr>	
 							</tr>
 							<tr>
+								<td>`+f[0].id+`</td>
 								<td>`+f[0].src+`</td>		
+								<td>`+f[0].dest+`</td>		
+								<td>`+f[0].departure+`</td>		
+								<td>`+f[0].arrival+`</td>		
 							</tr>
 						</table>
 					</div>'`;
