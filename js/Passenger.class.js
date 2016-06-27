@@ -3,7 +3,7 @@
 const KEY_PASSENGERS = 'passengers';
 
 // This is a constructor function
-function Passenger(name, birthdate, id, gender, phone, email, country, img) {
+function Passenger(name, birthdate, id, gender, phone, email, country, img, flights) {
 	this.name      = name;
 	this.birthdate = new Date(birthdate);
 	this.pin       = randomPin();
@@ -13,9 +13,18 @@ function Passenger(name, birthdate, id, gender, phone, email, country, img) {
 	this.email     = email;
 	this.country   = country;
 	this.img       = img;
+	this.flights   = [];
 }
 
 // static methods:
+Passenger.getFlightById = function (pId) {
+	let result = null;
+	let passengers = Passenger.query()
+		.filter(p => p.id === pId);
+	if (passengers.length) result = passengers[0].flights;
+	return result;
+}
+
 Passenger.nextId = function () {
 	let result = 1;
 	let jsonPassengers = Passenger.loadJSONFromStorage();
@@ -44,7 +53,7 @@ Passenger.query = function () {
 	Passenger.passengers = jsonPassengers.map(jsonPassenger => {
 		return new Passenger(jsonPassenger.name, jsonPassenger.birthdate, jsonPassenger.id,
 							 jsonPassenger.gender, jsonPassenger.phone,
-							 jsonPassenger.email, jsonPassenger.country, jsonPassenger.img);
+							 jsonPassenger.email, jsonPassenger.country, jsonPassenger.img, jsonPassenger.flights);
 	});
 	return Passenger.passengers;
 }
@@ -63,7 +72,7 @@ Passenger.save = function (formObj) {
 		passenger.email = formObj.pEmail;
 		passenger.img = formObj.pImg;
 	} else {
-		passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId,formObj.pGender, formObj.pPhone, formObj.pEmail, formObj.pCountry, formObj.pImg);
+		passenger = new Passenger(formObj.pName, formObj.pDate, formObj.pId,formObj.pGender, formObj.pPhone, formObj.pEmail, formObj.pCountry, formObj.pImg, formObj.pFlights);
 		// console.log(passenger);
 		
 		passengers.push(passenger);
@@ -134,6 +143,10 @@ Passenger.select = function (pId, elRow) {
 								<td><p>`+p.email+`</p></td>
 								<td><p>`+p.country+`</p></td>
 								<td><p>`+p.image+`</p></td>
+									
+							</tr>
+							<tr>
+								<td>`+p.flights+`hello</td>								
 							</tr>
 						</table>
 					</div>'`;
