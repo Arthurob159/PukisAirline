@@ -122,9 +122,21 @@ Flight.select = function (fId, elRow) {
 	$('.active').removeClass('active success');
 	$(elRow).addClass('active success');
 	$('.details').show();
-	let flight = Flight.findById(fId);
-	let strHtml = '<h2>Passengers List</h2>';
-	$('.details').html(strHtml);
+	// let flight = Flight.findById(fId);
+	// let passengers = Passengers.query().map(passenger => passenger);
+	// let strHtml = '<h3>Passengers List</h3>';
+	// strHtml = `
+	// 			<table class="table">
+ //                    <th>Id</th>
+ //                    <th>Source</th>
+ //                    <th>Destination</th>
+ //                    <th>Departure</th>
+ //                    <th>Arrival</th>
+ //                    <th>Available Seats</th>`
+
+
+
+	// $('.details').html(strHtml);
 	// $('.pDetailsName').html(f.name);
 }
 
