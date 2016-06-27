@@ -2,14 +2,19 @@
 
 function getAvailableFlights(){
 	let src = $('#searchFrom').val();
-	// if (!src)
-	let dest = $('#searchTo').val();
+	if (!src){
+		alert('no source');
+		return;
+	}
 	let relaventFlights = Flight.query()
-								.filter(flight=>{
-									return ((flight.src === src)
-										&& (flight.dest === dest)
-										);
-								});
+								.filter(flight=>
+									flight.src === src);
+	let dest = $('#searchTo').val();
+	if(dest){
+		relaventFlights = relaventFlights
+							.filter(flight =>
+								flight.dest === dest);
+	}
 	console.log('relFlights', relaventFlights);
 	renderAvailableFlights(relaventFlights);
 
