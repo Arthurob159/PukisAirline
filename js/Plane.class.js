@@ -108,7 +108,18 @@ Plane.select = function (pId, elRow) {
     $(elRow).addClass('active success');
     $('.details').show();
     let p = Plane.findById(pId);
-    let strHtml = '<h2>Plane <span class="pDetailsName"></span> Details</h2>';
+    let strHtml = ` <table class="table">
+                        <th>Id</th>
+                        <th>model</th>
+                        <th>Sits Count</th>
+                        <tr>
+                            <td><p>`+pId+`</p></td>
+                            <td><p>`+p.model+`</p></td>
+                            <td><p>`+p.sitsCount+`</p></td>
+                        </tr>
+                    </table>
+                    
+                    `;
     $('.details').html(strHtml);
     $('.pDetailsName').html(p.name);
 

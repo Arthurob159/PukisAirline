@@ -1,7 +1,13 @@
-query to show available flights from LS
-div template to show available flights
+Planes- show next flights of the airplane- Neta
+inFlights i need to choose by plane id (id-model)- Neta
 
 
+Passengers- show correct flight- Arthur
+Show passenger Image- Arthur
+render dropdown of countries using set- Arthur
+
+flightid=>planeid=>seatscount=>
+flights.remainingSeats -> change in save and get from Ls, and in constructor
 
 hover on table
 add bg-images to planes and flights
