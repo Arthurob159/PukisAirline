@@ -48,7 +48,7 @@ Flight.query = function(){
 	Flight.flights = jsonFlights.map(jsonFlight => {
 		return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest,
 							 jsonFlight.departure, jsonFlight.arrival,
-							 jsonFlight.plane);
+							 jsonFlight.plane, jsonFlight.seatsLeft);
 	});
 
 	return Flight.flights;
@@ -64,8 +64,9 @@ Flight.save = function (formObj) {
 		flight.departure = formObj.fDeparture;
 		flight.arrival = formObj.fArrival;
 		flight.plane = formObj.fPlane;
+		flight.seatsLeft = formObj.seatsLeft;
 	} else {
-		flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane);
+		flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane, formObj.seatsLeft);
 		flights.push(flight);
 	}
 	Flight.flights = flights;
@@ -98,6 +99,7 @@ Flight.printFlights = function(flights, canEdit){
 			<td>${f.departure}</td>
 			<td>${f.arrival}</td>
 			<td>${f.plane}</td>
+			<td>${f.seatsLeft}</td>
 			<td>
 				<button class="btn btn-danger" onclick="Flight.remove(${f.id}, event)">
 					<i class="glyphicon glyphicon-trash"></i>
@@ -120,10 +122,10 @@ Flight.select = function (fId, elRow) {
 	$('.active').removeClass('active success');
 	$(elRow).addClass('active success');
 	$('.details').show();
-	let f = Flight.findById(fId);
-	let strHtml = '<h2>Flight <span class="pDetailsName"></span> Details</h2>';
+	let flight = Flight.findById(fId);
+	let strHtml = '<h2>Passengers List</h2>';
 	$('.details').html(strHtml);
-	$('.pDetailsName').html(f.name);
+	// $('.pDetailsName').html(f.name);
 }
 
 
@@ -152,6 +154,7 @@ Flight.editFlight = function (fId, event) {
 		$('#fArrival').val();
 		$('#fPlane').val();
 	}
+
 	let planesId = Plane.query()
 			.map(plane => '<option value="'+plane.id+'"">'+plane.id+'-'+plane.model+'</option>').join('');
 	$('#fPlane').html('');
