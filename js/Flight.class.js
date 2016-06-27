@@ -14,7 +14,8 @@ function Flight(id, src, dest, departure, arrival, plane, seatsLeft) {
 	this.departure = departure;
 	this.arrival = arrival;
 	this.plane = plane;
-	this.seatsLeft = seatsLeft || Plane.findById(plane).sitsCount;
+	this.seatsLeft = seatsLeft;
+	// this.seatsLeft = seatsLeft || Plane.findById(plane).sitsCount;
 }
 
 // static methods:

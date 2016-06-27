@@ -18,22 +18,10 @@ function Passenger(name, birthdate, id, gender, phone, email, country, img, flig
 
 // static methods:
 Passenger.getFlightByPId = function (pId) {
-	debugger;
-	// let 
 	let passengerFlights = [];
-	// Flight.foreach(fId)
 	let f =Flight.query();
-	console.log('f:',f);
+	// console.log('f:',f);
 	return Passenger.flights = f;
-
-	// Passenger.flights.foreach((fId)=> {passengerFlights.push(Flight.query())});
-	// Passenger.flights.foreach(fId=> {passengerFlights.push(Flight.query().filter(flight.fId === passenger[i]))});
-	// 	return passengerFlights;
-	// passenger.flights.foreach(){}
-	// let passengers = Passenger.query();
-		// .filter(p => p.id === pId);
-	// if (passengers.length) result = passengers[0].flights;
-	// return result;
 }
 
 Passenger.nextId = function () {
@@ -70,7 +58,7 @@ Passenger.query = function () {
 }
 
 Passenger.save = function (formObj) {
-	console.log('passenger.save()');
+	// console.log('passenger.save()');
 	let passengers = Passenger.query();
 	let passenger;
 	if (formObj.pId) {
@@ -104,7 +92,7 @@ Passenger.remove = function (pId, event) {
 Passenger.render = function () {
 
 	let passengers = Passenger.query();
-	console.log('passengers:',passengers);
+	// console.log('passengers:',passengers);
 	var strHtml = passengers.map(p => {
 		return `<tr onclick="Passenger.select(${p.id}, this)">
 			<td>${p.id}</td>
@@ -134,9 +122,9 @@ Passenger.select = function (pId, elRow) {
 	$(elRow).addClass('active success');
 	$('.details').show();
 	let p = Passenger.findById(pId);
-	console.log('p:',p);
+	// console.log('p:',p);
 	let f = Passenger.getFlightByPId(pId);
-	console.log('f:', f);
+	// console.log('f:', f);
 	let strHtml = `'<h2>Passenger <span class="pDetailsName"></span> Details</h2>
 					<div class="passengerDetails">
 						<table class="table">
@@ -181,7 +169,7 @@ Passenger.select = function (pId, elRow) {
 
 Passenger.savePassenger = function () {
 	var formObj = $('form').serializeJSON();
-	console.log('formObj', formObj);
+	// console.log('formObj', formObj);
 
 	Passenger.save(formObj);
 	Passenger.render();
