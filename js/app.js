@@ -2,29 +2,42 @@
 
 function getAvailableFlights(){
 	let src = $('#searchFrom').val();
-	// if (!src)
-	let dest = $('#searchTo').val();
+	console.log('src:',src);
+	if (!src){
+		alert('no source');
+		return;
+	}
 	let relaventFlights = Flight.query()
-								.filter(flight=>{
-									return ((flight.src === src)
-										&& (flight.dest === dest)
-										);
-								});
+								.filter(flight=>
+									flight.src === src);
+	let dest = $('#searchTo').val();
+	console.log('dest:',dest);
+
+	if(dest){
+		relaventFlights = relaventFlights
+							.filter(flight =>
+								flight.dest === dest);
+	}
 	console.log('relFlights', relaventFlights);
 	renderAvailableFlights(relaventFlights);
-
 }
 
-function renderAvailableFlights() {
-  $('#modalTicket').modal('show');
-  $('#modalTicketSrc').text($('#searchFrom').val());
-  $('#modalTicketDest').text($('#searchTo').val());
-  
-  //TODO- 1.change flightDate.text to the right curr flight date--from LS
-  //      2.change availableSeats.text to the right availableSeats curr flight seats--from LS 
-  $('#flightDate').text('flightDate');
-  $('#availableSeats').text('availableSeats');
-  
+function renderAvailableFlights(relFlights) {
+	console.log('relFlights:',relFlights);
+	$('#modalTicket').modal('show');
+
+	//clean the body from previous results
+	$('.modal-body').html('');
+	relFlights.forEach(flight=>{
+		$('.modal-body').append($('template').html()
+							.replace('%src%', flight.src)
+							.replace('%dest%', flight.dest)
+							.replace('%dep%', flight.departure)
+							.replace('%arr%', flight.arrival)
+							// .replace('%seats%',flight.src)
+							);
+	});
+	console.log('renderAvailableFlights');
 }
 // function init() {
 
@@ -52,3 +65,6 @@ $(document).ready(()=>{
     Passenger.render();
 
 });
+bookFlight(){
+	
+}

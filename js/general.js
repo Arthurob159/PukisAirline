@@ -64,6 +64,3 @@ function inherit(derived, base) {
 
      derived.prototype = new Dummy();
 }
-
-
-

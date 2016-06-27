@@ -63,3 +63,28 @@ footer {
 
 @import 'passenger';
 
+.availableFlights{
+  background-color: lightblue;
+  display: inline-block;
+  width: 48%;
+  border-radius: 15%;
+  text-align: -webkit-center;
+  margin: 2px;
+}
+
+.availableFlights > img{
+  background-color: lightblue;
+  max-width:50%;
+  max-height:50%;
+}
+
+.modal{
+  height:80%;
+  // width:60%;
+  overflow-y: hidden;
+}
+#modalTicket{
+  overflow-y: scroll;
+
+  // width:60%;
+}
