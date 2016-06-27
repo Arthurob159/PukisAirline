@@ -104,7 +104,8 @@
 		</div>
 
 		<template>
-			<div class="availableFlights">
+			<div class="availableFlights" onclick="bookFlight(this)">
+				<input type="hidden" name="fid" value="%id%">
 				<p id="flightSrc">%src%</p>
 				<p id="flightDest">%dest%</p>
 				<img src="img/seat.png" class="img img-responsive" alt="">

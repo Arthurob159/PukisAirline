@@ -30,6 +30,7 @@ function renderAvailableFlights(relFlights) {
 	$('.modal-body').html('');
 	relFlights.forEach(flight=>{
 		$('.modal-body').append($('template').html()
+							.replace('%id%', flight.id)
 							.replace('%src%', flight.src)
 							.replace('%dest%', flight.dest)
 							.replace('%dep%', flight.departure)
@@ -65,6 +66,6 @@ $(document).ready(()=>{
     Passenger.render();
 
 });
-bookFlight(){
-	
+function bookFlight(el){
+	console.log('el:',$(el).html());
 }
