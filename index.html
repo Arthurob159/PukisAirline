@@ -78,38 +78,41 @@
 		</main>
 
 		<div class="modal fade" id="modalTicket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						<div class="modal-dialog" role="document">
-								<div class="modal-content">
-										<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title" id="myModalLabel">Matching Flights</h4>
-										</div>
-										<div class="modal-body">
-												<!-- <form>
-														<input type="hidden" id="pId" name="pId" >
-														<p><span id="modalTicketSrc">Source</span><span id="modalTicketDest">Destination</span></p>
-														<div class="option">
-															<img src="img/seat.png" class="img img-responsive" alt="">
-															<h3><span id="flightDate">Date<span></h3>
-															<h4>Available Seats: <span id="availableSeats"></span></h4>
-														</div>
-												</form> -->
-											<div class="availableFlights">
-												<img src="img/seat.png" class="img img-responsive" alt="">
-											</div>
-										</div>
-										<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<!-- <button type="button" class="btn btn-primary" onclick="Passenger.savePassenger()">Save</button> -->
-										</div>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Matching Flights</h4>
+					</div>
+					<div class="modal-body">
+						<!-- <form>
+								<input type="hidden" id="pId" name="pId" >
+								<p><span id="modalTicketSrc">Source</span><span id="modalTicketDest">Destination</span></p>
+								<div class="option">
+									<img src="img/seat.png" class="img img-responsive" alt="">
+									<h3><span id="flightDate">Date<span></h3>
+									<h4>Available Seats: <span id="availableSeats"></span></h4>
 								</div>
-						</div>
+						</form> -->
+					</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<!-- <button type="button" class="btn btn-primary" onclick="Passenger.savePassenger()">Save</button> -->
+					</div>
 				</div>
+			</div>
+		</div>
 
 		<template>
 			<div class="availableFlights">
-				
+				<p id="flightSrc">%src%</p>
+				<p id="flightDest">%dest%</p>
+				<img src="img/seat.png" class="img img-responsive" alt="">
+				<p id="flightDeparture">%dep%</p>
+				<p id="flightArrival">%arr%</p>
+				<p id="availableSeats">%seats%</p>
 			</div>
+				
 		</template>
 		<footer>
 				cofferights &copy; 2016
