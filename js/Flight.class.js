@@ -8,7 +8,6 @@ $(document).ready(()=>{
 
 });// This is a constructor function
 function Flight(id, src, dest, departure, arrival, plane) {
-    console.log('constructor');
     this.id = (id) ? id : Flight.nextId();
     this.src = src;
     this.dest = dest;
@@ -23,7 +22,6 @@ Flight.nextId = function () {
     let result = 1;
     let jsonFlights = Flight.loadJSONFromStorage();
     if (jsonFlights.length) result = jsonFlights[jsonFlights.length - 1].id + 1;
-    console.log('result:',result);
     return result;
 }
 
@@ -37,21 +35,15 @@ Flight.findById = function (fId) {
 
 Flight.loadJSONFromStorage = function () {
     let flights = getFromStorage(KEY_FLIGHTS);
-    console.log('flights:',flights);
     if (!flights) flights = [];
     return flights;
 }
 
 
-
+//get all flights
 Flight.query = function () {
-    console.log('query()');
     if (Flight.flights) return Flight.flights;
     let jsonFlights = Flight.loadJSONFromStorage();
-    console.log('jsonFlights:',jsonFlights);
-    // Flight.flights = jsonFlights.map(jsonFlight => {
-    //     return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest, jsonFlight.departure, jsonFlight.arrival, jsonFlight.plane);
-    // });
     Flight.flights = jsonFlights.map(jsonFlight => {
         return new Flight(jsonFlight.id, jsonFlight.src, jsonFlight.dest,
                              jsonFlight.departure, jsonFlight.arrival,
@@ -62,30 +54,24 @@ Flight.query = function () {
 }
 
 Flight.save = function (formObj) {
-    console.log('save', formObj);
     let flights = Flight.query();
     let flight;
-    console.log('save flights query',flights);
     if (formObj.fId) {
         flight = Flight.findById(+formObj.fId);
         flight.src = formObj.fSrc;
         flight.dest = formObj.fDest;
-        flight.departue = formObj.fDeparture;
+        flight.departure = formObj.fDeparture;
         flight.arrival = formObj.fArrival;
         flight.plane = formObj.fPlane;
     } else {
-        console.log('save- else');
         flight = new Flight(formObj.fId, formObj.fSrc, formObj.fDest, formObj.fDeparture, formObj.fArrival, formObj.fPlane);
         flights.push(flight);
-        console.log('new flights:',flights);
     }
-    console.log('flights save:',flights);
     Flight.flights = flights;
     saveToStorage(KEY_FLIGHTS, flights);
 }
 
 Flight.remove = function (fId, event) {
-    console.log('remove');
     event.stopPropagation();
     let flights = Flight.query();
     flights = Flights.filter(f => f.id !== fId)
@@ -97,9 +83,7 @@ Flight.remove = function (fId, event) {
 Flight.render = function () {
 
     let flights = Flight.query();
-	console.log('render', flights);
     var strHtml = flights.map(f => {
-			console.log('render map',f);
 
         return `<tr onclick="Flight.select(${f.id}, this)">
             <td>${f.id}</td>
@@ -130,30 +114,26 @@ Flight.select = function (fId, elRow) {
     let strHtml = '<h2>Flight <span class="pDetailsName"></span> Details</h2>';
     $('.details').html(strHtml);
     $('.pDetailsName').html(f.name);
-
 }
 
 
 Flight.saveFlight = function () {
     var formObj = $('form').serializeJSON();
-    console.log('formObj saveFlight', formObj);
-
-
     Flight.save(formObj);
     Flight.render();
     $('#modalFlight').modal('hide');
 }
 
-Flight.editFlight = function (pId, event) {
+Flight.editFlight = function (fId, event) {
     if (event) event.stopPropagation();
-    if (pId) {
-        let Flight = Flight.findById(pId);
-        $('#fId').val(Flight.id);
-        $('#fSrc').val(Flight.src);
-        $('#fDest').val(Flight.dest);
-        $('#fDeparture').val(Flight.departure);
-        $('#fArrival').val(Flight.arrival);
-        $('#fPlane').val(Flight.plane);
+    if (fId) {
+        let flight = Flight.findById(fId);
+        $('#fId').val(flight.id);
+        $('#fSrc').val(flight.src);
+        $('#fDest').val(flight.dest);
+        $('#fDeparture').val(flight.departure);
+        $('#fArrival').val(flight.arrival);
+        $('#fPlane').val(flight.plane);
     } else {
         $('#fId').val();
         $('#fSrc').val();
@@ -163,24 +143,6 @@ Flight.editFlight = function (pId, event) {
         $('#fPlane').val();
     }
 
-
     $('#modalFlight').modal('show');
 
 }
-
-// instance methods:
-/*
-Flight.prototype.isBirthday = function () {
-    let now = new Date();
-    return (this.birthdate.getMonth() === now.getMonth() &&
-        this.birthdate.getDate() === now.getDate());
-}
-
-
-Flight.prototype.checkPin = function (pin) {
-    return pin === this.pin;
-}
-*/
-
-
-
