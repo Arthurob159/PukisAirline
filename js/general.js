@@ -66,7 +66,23 @@ function inherit(derived, base) {
 }
 
 function getCountriesFromLS () {
-    let countries = [];
-    Flight.query().filter;
+    let countriesSet = new Set();
+    let flights = Flight.query();
+    srcFlights = flights.map(f => f.src);
+    destFlights = flights.map(f => f.dest);
+    countriesSet.add(srcFlights);
+    countriesSet.add(destFlights);
+    
+    console.log('countriesSet: ' ,countriesSet);
+    for (let item of countriesSet) {
+                                      var option = `<option value="`+item+`">`};
+    let strHTML = `<datalist id="countries">
+                      `+option+`
+                   </datalist>`;
+                   console.log('strHTML: ',strHTML);
+    $('#searchFrom').html(strHTML);
+    // var el = document.querySelector('#searchFrom');
+    // console.log('el: ',el);
+    // console.log('General flights: ',flights[0].src ,flights[0].dest);
 }
 
