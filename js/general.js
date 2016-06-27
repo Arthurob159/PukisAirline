@@ -64,3 +64,9 @@ function inherit(derived, base) {
 
      derived.prototype = new Dummy();
 }
+
+function getCountriesFromLS () {
+    let countries = [];
+    Flight.query().filter;
+}
+

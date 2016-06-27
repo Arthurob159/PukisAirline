@@ -68,4 +68,18 @@ $(document).ready(()=>{
 });
 function bookFlight(el){
 	console.log('el:',$(el).children()[0].value);
+	bookFlightByPId();
+}
+function bookFlightByPId() {
+  $('#modalTicket').modal('show');
+  // $('.modal-body').html('');
+  let passengers = Passenger.query().map(p => '<option value="'+p.name+'">'+p.name+'</option>').join(' ');
+  console.log('passengers:' ,passengers);
+  let strHtml = `<label for="passengers">Choose Passenger</label>
+				 <select name="passengers" id="passengers" class="form-control">`+passengers+`</select>
+				 <div class="passImg"><img src="" alt="Passenger image"></div>`;
+  $('.modal-body').html(strHtml);
+
+  //<label for="pGender">Gender</label>
+                            //<select name="pGender" id="pGender" class="form-control">
 }

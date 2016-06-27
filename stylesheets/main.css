@@ -6270,3 +6270,7 @@ footer {
 
 #modalTicket {
   overflow-y: scroll; }
+
+.passImg {
+  text-align: center;
+  margin-top: 8px; }
