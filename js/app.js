@@ -67,5 +67,5 @@ $(document).ready(()=>{
 
 });
 function bookFlight(el){
-	console.log('el:',$(el).html());
+	console.log('el:',$(el).children()[0].value);
 }
